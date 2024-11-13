@@ -1,4 +1,4 @@
-import User from "./user.js"; // Import the User model
+import User from "./user.js"; // Import User model for association
 
 export default (sequelize, DataTypes) => {
   const Task = sequelize.define(
@@ -25,8 +25,8 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "users",
-          key: "id",
+          model: "users", // References 'users' table
+          key: "id", // Foreign key for 'id' column
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
@@ -38,7 +38,8 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  Task.belongsTo(User, { foreignKey: "userId" });
+  // Define the relationship between Task and User
+  // Task.belongsTo(User, { foreignKey: "userId" });
 
   return Task;
 };

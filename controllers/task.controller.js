@@ -6,17 +6,24 @@ export const createTask = async (req, res) => {
   try {
     const { title, description, priority, dueDate, status } = req.body;
 
+    const userId = req.user?.id;
+    if (!userId) {
+      return res.status(401).json({ success: false, message: "Unauthorized" });
+    }
+
+    // Create a new task associated with the user
     const newTask = await Task.create({
       title,
       description,
       priority,
       dueDate,
       status,
-      userId: req.user.id,
+      userId,
     });
 
     return res.status(201).json({ success: true, data: newTask });
   } catch (error) {
+    console.error("Error creating task:", error);
     return res.status(500).json({ success: false, message: error.message });
   }
 };

@@ -26,6 +26,6 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  User.hasMany(Task, { foreignKey: "userId" });
+  // User.hasMany(Task, { foreignKey: "userId" });
   return User;
 };
