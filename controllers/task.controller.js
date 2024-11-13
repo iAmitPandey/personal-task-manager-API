@@ -1,5 +1,7 @@
-import Task from "../models/index.js";
 import { Op } from "sequelize";
+import db from "../models/index.js";
+
+const Task = db.Task;
 
 // Create a new task
 export const createTask = async (req, res) => {
@@ -77,11 +79,73 @@ export const getTaskById = async (req, res) => {
   }
 };
 
+export const getFilteredTask = async (req, res) => {
+  try {
+    const { priority, status, startDate, endDate, sortBy, order } = req.query;
+
+    // Basic filters for user tasks
+    const filters = {
+      userId: req.user.id,
+    };
+
+    // Filter by priority
+    if (priority) {
+      filters.priority = priority;
+    }
+
+    // Filter by status
+    if (status) {
+      filters.status = status;
+    }
+
+    if (startDate && endDate) {
+      filters.dueDate = {
+        [Op.between]: [new Date(startDate), new Date(endDate)],
+      };
+    } else if (startDate) {
+      filters.dueDate = { [Op.gte]: new Date(startDate) };
+    } else if (endDate) {
+      filters.dueDate = { [Op.lte]: new Date(endDate) };
+    }
+
+    // Sorting options
+    const sortOptions = [];
+    if (sortBy) {
+      if (sortBy === "dueDate") {
+        sortOptions.push(["dueDate", order || "ASC"]);
+      } else if (sortBy === "priority") {
+        sortOptions.push(["priority", order || "ASC"]);
+      }
+    }
+
+    if (sortOptions.length === 0) {
+      sortOptions.push(["createdAt", "DESC"]);
+    }
+
+    const tasks = await Task.findAll({
+      where: filters,
+      order: sortOptions,
+    });
+
+    return res.status(200).json({ success: true, data: tasks });
+  } catch (error) {
+    console.error("Error fetching tasks:", error);
+    return res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 // Update a task
 export const updateTask = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, priority, dueDate, status } = req.body;
+
+    // Optional: Validation for required fields
+    if (!title && !description && !priority && !dueDate && !status) {
+      return res
+        .status(400)
+        .json({ success: false, message: "No fields provided to update" });
+    }
 
     const task = await Task.findOne({
       where: { id, userId: req.user.id },
@@ -93,6 +157,7 @@ export const updateTask = async (req, res) => {
         .json({ success: false, message: "Task not found" });
     }
 
+    // Update only the fields that were provided in the request
     task.title = title || task.title;
     task.description = description || task.description;
     task.priority = priority || task.priority;
@@ -103,6 +168,7 @@ export const updateTask = async (req, res) => {
 
     return res.status(200).json({ success: true, data: task });
   } catch (error) {
+    console.error(error); // Optionally log the error for debugging
     return res.status(500).json({ success: false, message: error.message });
   }
 };

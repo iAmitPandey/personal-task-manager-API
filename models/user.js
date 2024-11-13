@@ -1,7 +1,8 @@
 import Task from "./task.js";
+
 export default (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "Users",
+    "User",
     {
       // Model attributes are defined here
       username: {
@@ -26,6 +27,10 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  // User.hasMany(Task, { foreignKey: "userId" });
+  // Define associations inside a static associate method
+  User.associate = (models) => {
+    User.hasMany(models.Task, { foreignKey: "userId", as: "tasks" });
+  };
+
   return User;
 };
