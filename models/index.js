@@ -3,7 +3,7 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { Sequelize, DataTypes } from "sequelize";
 import { env as _env } from "process";
-import configFile from "../config/config.js";
+import { config as configFile } from "../config/db.config.js";
 
 import initUserModel from "./user.js";
 import initTaskModel from "./task.js";
@@ -17,7 +17,7 @@ const db = {};
 
 let sequelize;
 
-if (config.use_env_variable) {
+if (config?.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
   sequelize = new Sequelize(
@@ -63,6 +63,6 @@ db.sequelize = sequelize;
 db.user = initUserModel(sequelize, DataTypes);
 db.task = initTaskModel(sequelize, DataTypes);
 
-db.sequelize.sync({ force: true });
+db.sequelize.sync({ force: false });
 
 export default db;
