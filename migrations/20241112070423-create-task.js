@@ -2,7 +2,7 @@
 
 export default {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Tasks", {
+    await queryInterface.createTable("tasks", {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -30,7 +30,7 @@ export default {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: "Users",
+          model: "users",
           key: "id",
         },
         onDelete: "CASCADE",

@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const Task = sequelize.define(
-    "tasks",
+    "Tasks",
     {
       // Model attributes are defined here
       title: {
@@ -24,7 +24,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Users",
+          model: "users",
           key: "id",
         },
         onDelete: "CASCADE",
@@ -41,5 +41,5 @@ export default (sequelize, DataTypes) => {
   // // `sequelize.define` also returns the model
   // console.log(Task === sequelize.models.Task); // true
 
-  // return Task;
+  return Task;
 };

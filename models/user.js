@@ -27,4 +27,5 @@ export default (sequelize, DataTypes) => {
 
   // // `sequelize.define` also returns the model
   // console.log(User === sequelize.models.User); // true
+  return User;
 };

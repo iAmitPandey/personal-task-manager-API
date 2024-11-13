@@ -4,7 +4,7 @@ import { Sequelize } from "sequelize";
 
 /** @type {import('sequelize-cli').Migration} */
 export const up = async (queryInterface) => {
-  await queryInterface.createTable("Users", {
+  await queryInterface.createTable("users", {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -39,5 +39,5 @@ export const up = async (queryInterface) => {
 };
 
 export const down = async (queryInterface) => {
-  await queryInterface.dropTable("Users");
+  await queryInterface.dropTable("users");
 };
