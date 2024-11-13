@@ -1,16 +1,8 @@
-"use strict";
-import { Model } from "sequelize";
-
 export default (sequelize, DataTypes) => {
-  class Task extends Model {
-    static associate(models) {
-      // Define the association with the User model
-      Task.belongsTo(models.User, { foreignKey: "userId", as: "user" });
-    }
-  }
-
-  Task.init(
+  const Task = sequelize.define(
+    "tasks",
     {
+      // Model attributes are defined here
       title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -40,12 +32,14 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
-      sequelize,
-      modelName: "Task",
-      tableName: "Tasks",
+      // Other model options go here
+      tableName: "tasks",
       timestamps: true,
     }
   );
 
-  return Task;
+  // // `sequelize.define` also returns the model
+  // console.log(Task === sequelize.models.Task); // true
+
+  // return Task;
 };

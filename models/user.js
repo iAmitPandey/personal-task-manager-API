@@ -1,19 +1,8 @@
-"use strict";
-import { Model } from "sequelize";
-
 export default (sequelize, DataTypes) => {
-  class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      User.hasMany(models.Task, { foreignKey: "userId" });
-    }
-  }
-  User.init(
+  const User = sequelize.define(
+    "users",
     {
+      // Model attributes are defined here
       username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -30,9 +19,12 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
-      sequelize,
-      modelName: "User",
+      // Other model options go here
+      tableName: "users",
+      timestamps: true,
     }
   );
-  return User;
+
+  // // `sequelize.define` also returns the model
+  // console.log(User === sequelize.models.User); // true
 };
