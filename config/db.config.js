@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import "dotenv/config.js";
 
-// Database configuration
+// // Database configuration
 export const config = {
   development: {
     username: process.env.DB_USER,
@@ -10,9 +10,23 @@ export const config = {
     host: process.env.DB_HOST,
     dialect: "mysql",
   },
+  test: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+  },
+  production: {
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
+    dialect: "mysql",
+  },
 };
 
-// Initialize Sequelize
+// // Initialize Sequelize
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,

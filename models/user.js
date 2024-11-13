@@ -1,6 +1,7 @@
+import Task from "./task.js";
 export default (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "users",
+    "Users",
     {
       // Model attributes are defined here
       username: {
@@ -25,7 +26,6 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  // // `sequelize.define` also returns the model
-  // console.log(User === sequelize.models.User); // true
+  User.hasMany(Task, { foreignKey: "userId" });
   return User;
 };

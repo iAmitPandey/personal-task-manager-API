@@ -12,7 +12,7 @@ router.use(authenticate);
 
 router.get("/", getAllTasks); // Get all tasks
 router.post("/", createTask); // Create a new task
-router.put("/:id", updateTask); // Update task
-router.delete("/:id", deleteTask); // Delete task
+router.put("/task/:id", updateTask); // Update task
+router.delete("/task/:id", deleteTask); // Delete task
 
 export default router;

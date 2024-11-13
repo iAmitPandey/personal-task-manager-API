@@ -1,8 +1,9 @@
+import User from "./user.js"; // Import the User model
+
 export default (sequelize, DataTypes) => {
   const Task = sequelize.define(
-    "Tasks",
+    "Task",
     {
-      // Model attributes are defined here
       title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -32,14 +33,12 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
-      // Other model options go here
       tableName: "tasks",
       timestamps: true,
     }
   );
 
-  // // `sequelize.define` also returns the model
-  // console.log(Task === sequelize.models.Task); // true
+  Task.belongsTo(User, { foreignKey: "userId" });
 
   return Task;
 };

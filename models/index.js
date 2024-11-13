@@ -56,13 +56,19 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-db.Sequelize = Sequelize;
-db.sequelize = sequelize;
-
 // Initialize the model
-db.user = initUserModel(sequelize, DataTypes);
-db.task = initTaskModel(sequelize, DataTypes);
+const User = initUserModel(sequelize, DataTypes);
+const Task = initTaskModel(sequelize, DataTypes);
+User.hasMany(Task, { foreignKey: "userId" });
+Task.belongsTo(User, { foreignKey: "userId" });
 
-db.sequelize.sync({ force: false });
+db = {
+  sequelize,
+  Sequelize,
+  user: User,
+  task: Task,
+};
+
+db.sequelize.sync({ force: true });
 
 export default db;
