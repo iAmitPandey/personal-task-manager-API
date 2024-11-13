@@ -33,7 +33,7 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT || "mysql", // Explicitly set the dialect here
+    dialect: process.env.DB_DIALECT || "mysql",
     logging: false,
   }
 );
@@ -43,7 +43,7 @@ export const connectDB = async () => {
   try {
     await sequelize.authenticate();
     console.log("Database connected successfully");
-    await sequelize.sync(); // Sync models with the database
+    await sequelize.sync();
   } catch (error) {
     console.error("Unable to connect to the database:", error);
     process.exit(1);
