@@ -2,12 +2,10 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
-    "dotenv-cli": "^7.4.2",
     "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.11.4",
-    "sequelize": "^6.37.5",
-    "sequelize-cli": "^6.6.2"
+    "sequelize": "^6.37.5"
   },
   "name": "task_manager",
   "version": "1.0.0",
