@@ -1,5 +1,3 @@
-import Task from "./task.js";
-
 export default (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",

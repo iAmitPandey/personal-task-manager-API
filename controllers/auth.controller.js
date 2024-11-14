@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { config } from "../config/config.js";
 
 import db from "../models/index.js";
 
@@ -32,7 +33,7 @@ const register = async (req, res) => {
     // Generate JWT
     const token = jwt.sign(
       { id: user.id, username: user.username },
-      process.env.JWT_SECRET,
+      config.jwtSecret,
       { expiresIn: "1h" }
     );
 
@@ -59,7 +60,7 @@ const login = async (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, username: user.username },
-      process.env.JWT_SECRET,
+      config.jwtSecret,
       { expiresIn: "1h" }
     );
     return res.json({ token });

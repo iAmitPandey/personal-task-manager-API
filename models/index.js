@@ -1,70 +1,34 @@
-import { readdirSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
-import { Sequelize, DataTypes } from "sequelize";
-import { env as _env } from "process";
-import { config as configFile } from "../config/config.js";
+import { Sequelize } from "sequelize";
+import { config } from "../config/config.js";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+import UserModel from "./user.js";
+import TaskModel from "./task.js";
+import dotenv from "dotenv";
+dotenv.config();
 
-const env = _env.NODE_ENV || "development";
-const config = configFile[env];
-let db = {};
-
-let sequelize;
-
-// Initialize Sequelize instance
-if (config?.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
-} else {
-  sequelize = new Sequelize(
-    config.database,
-    config.username,
-    config.password,
-    config
-  );
-}
-
-try {
-  await sequelize.authenticate();
-  console.log("Connection has been established successfully.");
-} catch (error) {
-  console.error("Unable to connect to the database:", error);
-}
-
-// Dynamically import all model files in the 'models' directory
-const modelFiles = readdirSync(__dirname).filter(
-  (file) =>
-    file.indexOf(".") !== 0 &&
-    file !== "index.js" &&
-    file.endsWith(".js") &&
-    !file.endsWith(".test.js")
-);
-
-// Initialize models and add them to the db object
-for (const file of modelFiles) {
-  const { default: modelInit } = await import(join(__dirname, file));
-  const model = modelInit(sequelize, DataTypes);
-  db[model.name] = model;
-}
-
-// Set up model associations if they exist
-Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
-    db[modelName].associate(db);
+const sequelize = new Sequelize(
+  config.database,
+  config.username,
+  config.password,
+  {
+    host: config.host,
+    dialect: config.dialect,
+    port: config.dbPort,
   }
-});
+);
+// }
 
-// Manually define associations if not handled by model's associate method
-if (db.User && db.Task) {
-  db.User.hasMany(db.Task, { foreignKey: "userId" });
-  db.Task.belongsTo(db.User, { foreignKey: "userId" });
-}
+const User = UserModel(sequelize, Sequelize.DataTypes);
+const Task = TaskModel(sequelize, Sequelize.DataTypes);
+const db = {
+  sequelize,
+  Sequelize,
+  User,
+  Task,
+};
 
-// Export initialized db object
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+db.User.hasMany(db.Task, { foreignKey: "userId" });
+db.Task.belongsTo(db.User, { foreignKey: "userId" });
 
 // Synchronize the models with the database
 db.sequelize.sync({ force: false });

@@ -1,11 +1,9 @@
 import express, { json } from "express";
 import { config } from "./config/config.js";
-import { connectDB } from "./config/config.js";
+import { connectDB } from "./connections/db.connect.js";
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/tasks.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
-
-// config();
 
 const app = express();
 app.use(json());

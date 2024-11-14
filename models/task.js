@@ -1,5 +1,3 @@
-import User from "./user.js"; // Import User model for association
-
 export default (sequelize, DataTypes) => {
   const Task = sequelize.define(
     "Task",
