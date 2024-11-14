@@ -14,7 +14,7 @@ app.use("/tasks", taskRoutes);
 
 app.use(errorHandler);
 
-connectDB().then(() => {
-  const PORT = config.port || 8000;
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-});
+// connectDB().then(() => {
+const PORT = config.port || 8000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// });

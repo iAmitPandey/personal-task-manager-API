@@ -23,7 +23,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "User", //users
+          model: "Users",
           key: "id",
         },
         onDelete: "CASCADE",
@@ -31,13 +31,12 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: "tasks",
+      tableName: "Tasks",
       timestamps: true,
       paranoid: true,
     }
   );
 
-  // Define the relationship between Task and User
   Task.associate = (models) => {
     Task.belongsTo(models.User, { foreignKey: "userId", as: "user" });
   };

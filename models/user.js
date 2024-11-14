@@ -2,7 +2,6 @@ export default (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",
     {
-      // Model attributes are defined here
       username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -19,13 +18,11 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
-      // Other model options go here
-      tableName: "users",
+      tableName: "Users",
       timestamps: true,
     }
   );
 
-  // Define associations inside a static associate method
   User.associate = (models) => {
     User.hasMany(models.Task, { foreignKey: "userId", as: "tasks" });
   };

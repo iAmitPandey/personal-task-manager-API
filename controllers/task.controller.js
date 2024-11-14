@@ -25,6 +25,8 @@ export const getAllTasks = async (req, res, next) => {
     const { priority, status, dueDateFrom, dueDateTo, sortBy, page, limit } =
       req.query;
 
+    const userId = req.user.id;
+
     const allTasks = await getAllTasksForUser(userId, {
       priority,
       status,
@@ -41,7 +43,7 @@ export const getAllTasks = async (req, res, next) => {
       totalTasks: allTasks.count,
       page: page || 1,
       limit: limit || 10,
-      totalPages: Math.ceil(result.count / (limit || 10)),
+      totalPages: Math.ceil(allTasks.count / (limit || 10)),
     });
   } catch (error) {
     next(error);

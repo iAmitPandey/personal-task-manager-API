@@ -1,6 +1,7 @@
 import db from "../models/index.js";
 
 const sequelize = db.sequelize;
+console.log(sequelize);
 
 export const connectDB = async () => {
   try {

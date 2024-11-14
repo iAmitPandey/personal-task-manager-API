@@ -36,7 +36,7 @@ export const getAllTasksForUser = async (userId, filters) => {
 
   return await db.Task.findAndCountAll({
     where,
-    order,
+    sortOptions,
     limit: pageSize,
     offset: offset,
   });
