@@ -6,7 +6,7 @@ export default (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: DataTypes.TEXT,
+      description: { type: DataTypes.TEXT },
       priority: {
         type: DataTypes.ENUM("low", "medium", "high"),
         allowNull: false,

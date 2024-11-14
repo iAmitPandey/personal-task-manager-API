@@ -1,4 +1,5 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from "@sequelize/core";
+
 import { config } from "../config/config.js";
 import UserModel from "./user.js";
 import TaskModel from "./task.js";
@@ -6,16 +7,16 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const sequelize = new Sequelize(
-  config.database,
-  config.username,
-  config.password,
-  {
-    host: config.host,
-    dialect: config.dialect,
-    port: config.dbPort,
-  }
-);
+const sequelize = new Sequelize({
+  dialect: config.dialect,
+  database: config.database,
+  user: config.username,
+  password: config.password,
+  host: config.host,
+  port: config.dbPort,
+  ssl: true,
+  clientMinMessages: "notice",
+});
 
 const User = UserModel(sequelize, Sequelize.DataTypes);
 const Task = TaskModel(sequelize, Sequelize.DataTypes);
