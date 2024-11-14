@@ -16,7 +16,6 @@ const sequelize = new Sequelize(
     port: config.dbPort,
   }
 );
-// }
 
 const User = UserModel(sequelize, Sequelize.DataTypes);
 const Task = TaskModel(sequelize, Sequelize.DataTypes);

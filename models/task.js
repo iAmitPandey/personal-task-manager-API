@@ -33,6 +33,7 @@ export default (sequelize, DataTypes) => {
     {
       tableName: "tasks",
       timestamps: true,
+      paranoid: true,
     }
   );
 
