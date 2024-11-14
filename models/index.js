@@ -3,7 +3,7 @@ import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 import { Sequelize, DataTypes } from "sequelize";
 import { env as _env } from "process";
-import { config as configFile } from "../config/db.config.js";
+import { config as configFile } from "../config/config.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

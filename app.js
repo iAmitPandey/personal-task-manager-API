@@ -1,11 +1,11 @@
 import express, { json } from "express";
-import { config } from "dotenv";
-import { connectDB } from "./config/db.config.js";
+import { config } from "./config/config.js";
+import { connectDB } from "./config/config.js";
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/tasks.routes.js";
 import errorHandler from "./middleware/error.middleware.js";
 
-config();
+// config();
 
 const app = express();
 app.use(json());
@@ -17,6 +17,6 @@ app.use("/tasks", taskRoutes);
 app.use(errorHandler);
 
 connectDB().then(() => {
-  const PORT = process.env.PORT || 8000;
+  const PORT = config.port || 8000;
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 });
