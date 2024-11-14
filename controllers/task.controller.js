@@ -1,5 +1,3 @@
-import db from "../models/index.js";
-
 import {
   createTaskForUser,
   getAllTasksForUser,
@@ -51,7 +49,7 @@ export const getAllTasks = async (req, res, next) => {
 };
 
 // Get a single task by ID
-export const getTaskById = async (req, res) => {
+export const getTaskById = async (req, res, next) => {
   try {
     const userId = req.user.id;
     const taskId = req.params.id;

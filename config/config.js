@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import "dotenv/config.js";
 
 // // Database configuration

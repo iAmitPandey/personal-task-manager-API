@@ -1,7 +1,5 @@
 "use strict";
 
-import { Sequelize } from "sequelize";
-
 /** @type {import('sequelize-cli').Migration} */
 export const up = async (queryInterface, Sequelize) => {
   await queryInterface.createTable("tasks", {

@@ -1,4 +1,5 @@
-const errorHandler = (err, req, res, next) => {
+/* eslint-disable no-undef */
+const errorHandler = (err, req, res) => {
   console.error(err.stack);
 
   const statusCode = err.status || 500;
