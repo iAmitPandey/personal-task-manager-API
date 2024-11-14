@@ -1,6 +1,6 @@
 # Task Management API
 
-This is a task management application API that allows users to create, read, update, and delete tasks. It also supports filtering, sorting, pagination, task reminders, and provides API documentation using Swagger.
+This is a task management application API that allows users to create, read, update, and delete tasks. It also supports filtering, sorting, pagination, and provides API documentation using Swagger.
 
 ## Features
 
@@ -15,8 +15,7 @@ This is a task management application API that allows users to create, read, upd
 
 - **Node.js**: JavaScript runtime for building the API.
 - **Express.js**: Web framework for building the RESTful API.
-- **Sequelize**: ORM for interacting with the database (PostgreSQL).
+- **Sequelize**: ORM for interacting with the database (mySql, PostgreSQL).
 - **JWT**: JSON Web Tokens for user authentication.
 - **Bcrypt.js**: For hashing passwords securely.
-- **Nodemailer**: For sending email reminders for tasks (optional).
 - **Swagger**: For generating API documentation.
