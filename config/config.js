@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import "dotenv/config.js";
+import 'dotenv/config.js';
 
 // // Database configuration
 export const config = {
@@ -7,7 +7,7 @@ export const config = {
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   host: process.env.DB_HOST,
-  dialect: "postgres",
+  dialect: 'postgres',
   dbPort: process.env.DB_PORT,
   port: process.env.PORT,
   jwtSecret: process.env.JWT_SECRET,

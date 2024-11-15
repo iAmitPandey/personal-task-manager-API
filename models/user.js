@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "User",
+    'User',
     {
       username: {
         type: DataTypes.STRING,
@@ -18,14 +18,11 @@ export default (sequelize, DataTypes) => {
       },
     },
     {
-      tableName: "Users",
+      tableName: 'Users',
       timestamps: true,
     }
   );
 
-  // User.associate = (models) => {
-  //   User.hasMany(models.Task, { foreignKey: "userId", as: "tasks" });
-  // };
 
   return User;
 };

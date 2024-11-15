@@ -4,7 +4,7 @@ import {
   getTaskByIdForUser,
   updateTaskForUser,
   deleteTaskForUser,
-} from "../services/task.service.js";
+} from '../services/task.service.js';
 
 export const createTask = async (req, res, next) => {
   try {
@@ -80,7 +80,7 @@ export const deleteTask = async (req, res, next) => {
 
     const userId = req.user.id;
     await deleteTaskForUser(id, userId);
-    res.json({ success: true, message: "Task deleted successfully" });
+    res.json({ success: true, message: 'Task deleted successfully' });
   } catch (error) {
     next(error);
   }
