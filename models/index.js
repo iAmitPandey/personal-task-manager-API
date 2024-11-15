@@ -14,15 +14,15 @@ const sequelize = new Sequelize({
   password: config.password,
   host: config.host,
   port: config.dbPort,
-  ssl: true,
+  ssl: { require: true, rejectUnauthorized: false },
   clientMinMessages: "notice",
 });
 
 const User = UserModel(sequelize, Sequelize.DataTypes);
 const Task = TaskModel(sequelize, Sequelize.DataTypes);
 
-User.hasMany(Task, { foreignKey: "userId" });
-Task.belongsTo(User, { foreignKey: "userId" });
+User.hasMany(Task, { foreignKey: "userId", as: "tasks" });
+Task.belongsTo(User, { foreignKey: "userId", as: "user" });
 
 const db = {
   sequelize,

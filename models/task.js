@@ -22,10 +22,10 @@ export default (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references: {
-          model: "Users",
-          key: "id",
-        },
+        // references: {
+        //   model: "Users",
+        //   key: "id",
+        // },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       },
@@ -37,9 +37,9 @@ export default (sequelize, DataTypes) => {
     }
   );
 
-  Task.associate = (models) => {
-    Task.belongsTo(models.User, { foreignKey: "userId", as: "user" });
-  };
+  // Task.associate = (models) => {
+  //   Task.belongsTo(models.User, { foreignKey: "userId", as: "user" });
+  // };
 
   return Task;
 };
