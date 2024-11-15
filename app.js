@@ -11,6 +11,7 @@ const stream = {
     write: (message) => logger.info(message.trim()), 
   };
   
+  const app = express();
   
   app.use(
     morgan('combined', {
@@ -19,7 +20,6 @@ const stream = {
     })
   );
 
-const app = express();
 app.use(json());
 
 // Routes
