@@ -1,5 +1,5 @@
-import { Op } from "sequelize";
-import db from "../models/index.js";
+import { Op } from 'sequelize';
+import db from '../models/index.js';
 
 const Task = db.Task;
 
@@ -25,10 +25,10 @@ export const getAllTasksForUser = async (userId, filters) => {
   }
 
   const sortOptions = [];
-  if (sortBy === "dueDateAsc") sortOptions.push(["dueDate", "ASC"]);
-  else if (sortBy === "dueDateDesc") sortOptions.push(["dueDate", "DESC"]);
-  else if (sortBy === "priorityAsc") sortOptions.push(["priority", "ASC"]);
-  else if (sortBy === "priorityDesc") sortOptions.push(["priority", "DESC"]);
+  if (sortBy === 'dueDateAsc') sortOptions.push(['dueDate', 'ASC']);
+  else if (sortBy === 'dueDateDesc') sortOptions.push(['dueDate', 'DESC']);
+  else if (sortBy === 'priorityAsc') sortOptions.push(['priority', 'ASC']);
+  else if (sortBy === 'priorityDesc') sortOptions.push(['priority', 'DESC']);
 
   const pageNumber = page ? parseInt(page) : 1;
   const pageSize = limit ? parseInt(limit) : 10;
@@ -48,7 +48,7 @@ export const getTaskByIdForUser = async (taskId, userId) => {
   });
 
   if (!task) {
-    throw new Error("Task not found or access denied.");
+    throw new Error('Task not found or access denied.');
   }
 
   return task;
@@ -62,7 +62,7 @@ export const updateTaskForUser = async (taskId, userId, taskData) => {
   if (!title && !description && !priority && !dueDate && !status) {
     throw new Error({
       success: false,
-      message: "No fields provided to update",
+      message: 'No fields provided to update',
     });
   }
 
@@ -71,7 +71,7 @@ export const updateTaskForUser = async (taskId, userId, taskData) => {
   });
 
   if (!task) {
-    throw new Error({ success: false, message: "Task not found" });
+    throw new Error({ success: false, message: 'Task not found' });
   }
 
   task.title = title || task.title;

@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 /** @type {import('sequelize-cli').Migration} */
 export const up = async (queryInterface, Sequelize) => {
-  await queryInterface.createTable("tasks", {
+  await queryInterface.createTable('tasks', {
     id: {
       type: Sequelize.INTEGER,
       autoIncrement: true,
@@ -15,7 +15,7 @@ export const up = async (queryInterface, Sequelize) => {
     },
     description: Sequelize.TEXT,
     priority: {
-      type: Sequelize.ENUM("low", "medium", "high"),
+      type: Sequelize.ENUM('low', 'medium', 'high'),
       allowNull: false,
     },
     dueDate: {
@@ -23,32 +23,32 @@ export const up = async (queryInterface, Sequelize) => {
       allowNull: false,
     },
     status: {
-      type: Sequelize.ENUM("pending", "completed"),
+      type: Sequelize.ENUM('pending', 'completed'),
       allowNull: false,
     },
     userId: {
       type: Sequelize.INTEGER,
       references: {
-        model: "users",
-        key: "id",
+        model: 'users',
+        key: 'id',
       },
-      onUpdate: "CASCADE",
-      onDelete: "CASCADE",
+      onUpdate: 'CASCADE',
+      onDelete: 'CASCADE',
       allowNull: false,
     },
     createdAt: {
       type: Sequelize.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     },
     updatedAt: {
       type: Sequelize.DATE,
       allowNull: false,
-      defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+      defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
     },
   });
 };
 
 export const down = async (queryInterface) => {
-  await queryInterface.dropTable("tasks");
+  await queryInterface.dropTable('tasks');
 };

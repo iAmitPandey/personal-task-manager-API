@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
   const Task = sequelize.define(
-    "Task",
+    'Task',
     {
       title: {
         type: DataTypes.STRING,
@@ -8,7 +8,7 @@ export default (sequelize, DataTypes) => {
       },
       description: DataTypes.TEXT,
       priority: {
-        type: DataTypes.ENUM("low", "medium", "high"),
+        type: DataTypes.ENUM('low', 'medium', 'high'),
         allowNull: false,
       },
       dueDate: {
@@ -16,29 +16,29 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
       },
       status: {
-        type: DataTypes.ENUM("pending", "completed"),
+        type: DataTypes.ENUM('pending', 'completed'),
         allowNull: false,
       },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-          model: "Users",
-          key: "id",
+          model: 'Users',
+          key: 'id',
         },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
       },
     },
     {
-      tableName: "Tasks",
+      tableName: 'Tasks',
       timestamps: true,
       paranoid: true,
     }
   );
 
   Task.associate = (models) => {
-    Task.belongsTo(models.User, { foreignKey: "userId", as: "user" });
+    Task.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
   };
 
   return Task;

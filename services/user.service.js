@@ -1,6 +1,6 @@
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt';
 
-import db from "../models/index.js";
+import db from '../models/index.js';
 
 const User = db.User;
 
@@ -10,11 +10,11 @@ export const createUser = async (inputData) => {
   // Check if user already exists
   const existingUser = await User.findOne({ where: { email } });
   if (existingUser) {
-    throw new Error("User already exists with this username!");
+    throw new Error('User already exists with this username!');
   }
 
   if (!username || !email || !password) {
-    throw new Error("All field required!");
+    throw new Error('All field required!');
   }
 
   // Hash password
