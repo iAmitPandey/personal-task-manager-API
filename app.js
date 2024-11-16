@@ -1,11 +1,12 @@
 import express, { json } from 'express';
 import { config } from './config/config.js';
-import authRoutes from './routes/user.routes.js';
-import taskRoutes from './routes/tasks.routes.js';
+import router from './routes/index.js';
 import errorHandler from './middleware/error.middleware.js';
+import db from './models/index.js';
+const sequelize = db.sequelize;
 
 import morgan from 'morgan';
-import logger from './config/logger.js';
+import logger from './utils/logger.js';
 
 const stream = {
     write: (message) => logger.info(message.trim()), 
@@ -22,11 +23,13 @@ const stream = {
 
 app.use(json());
 
-// Routes
-app.use('/auth', authRoutes);
-app.use('/tasks', taskRoutes);
+app.use(router);
 
 app.use(errorHandler);
 
-const PORT = config.port || 8000;
-app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+sequelize.authenticate().then(()=>{
+  logger.info('Connected to the database.');
+  const PORT = config.port;
+  app.listen(PORT, () => logger.info(`Server running on port ${PORT}`));
+});
+    

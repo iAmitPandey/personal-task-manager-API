@@ -3,11 +3,8 @@ import { Sequelize } from '@sequelize/core';
 import { config } from '../config/config.js';
 import UserModel from './user.js';
 import TaskModel from './task.js';
-import dotenv from 'dotenv';
 
-import logger from '../config/logger.js';
-
-dotenv.config();
+import logger from '../utils/logger.js';
 
 const sequelize = new Sequelize({
   dialect: config.dialect,
@@ -35,8 +32,6 @@ const db = {
 
 (async () => {
   try {
-    await sequelize.authenticate();
-    logger.info('Connected to the database.');
 
     await sequelize.sync({ alter: true });
     logger.info('Database tables created or updated.');

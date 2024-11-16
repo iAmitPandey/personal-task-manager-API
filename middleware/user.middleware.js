@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import jwt from 'jsonwebtoken';
+import { config } from '../config/config.js';
 
 const authenticate = (req, res, next) => {
   const token = req.header('Authorization')?.replace('Bearer ', '');
@@ -9,7 +10,7 @@ const authenticate = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.jwtSecret);
     req.user = decoded;
     next();
   } catch (error) {

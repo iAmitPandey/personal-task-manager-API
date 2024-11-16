@@ -17,7 +17,7 @@ const register = async (req, res, next) => {
     const token = jwt.sign(
       { id: userData.id, username: userData.username },
       config.jwtSecret,
-      { expiresIn: '1h' }
+      { expiresIn: config.tokenExpiration }
     );
     res
       .status(201)
@@ -48,7 +48,7 @@ const login = async (req, res, next) => {
     const token = jwt.sign(
       { id: user.id, username: user.username },
       config.jwtSecret,
-      { expiresIn: '1h' }
+      { expiresIn: config.tokenExpiration }
     );
     res.status(200).json({ message: 'Login successful', token });
   } catch (error) {
